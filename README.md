@@ -1,5 +1,5 @@
 # Inventory-API
-This repository contains the API and also the Web application version that pre-dates the api.
+This repository contains the API and also the Web application version that pre-dates the api. This is a small backend project that I made using php. It should be noted that all of this is could of course also be written in python. <br>
 A small inventory API residing on a free tier AWS server(1 GB of ram 30 GB of storage). I also set up a database containing 5 million records.
 
 # Web Applicatiction
