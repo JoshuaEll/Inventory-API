@@ -11,7 +11,7 @@ As seen in the image above it allows the user to search by: Device type, manufac
 This gives the user the ability to view the data returned in table format(see picture below). <br>
 ![list](img/ListDevices.PNG) <br>
 From there the user can choose to view the full information of a device and either view the files associated with it or upload file to the device. <br>
-![upload](img/Create.PNG) <br>
+![upload](img/ViewFile.PNG) <br>
 Or, the user can choose to update the device and also create new types or insert new devices into the tables if they want to. <br>
 ![create](img/Create.PNG) <br>
 
@@ -21,4 +21,4 @@ It has the all the functions of above, though I also added the ability to add a 
 
 Link: https://ec2-54-144-131-180.compute-1.amazonaws.com/swagger/#/ <br>
 
-[api](img/swagger.PNG) <br>
+[swagger](img/swagger.PNG) <br>
