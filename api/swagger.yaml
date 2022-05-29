@@ -1,4 +1,5 @@
-
+# Author: Joshua Ellis
+# This is the swagger yaml file that defines the swagger endpoint display
 openapi: 3.0.0
 info:
         title: Inventory Test Api
@@ -7,17 +8,81 @@ info:
 
 servers:
         - url: https://ec2-54-144-131-180.compute-1.amazonaws.com
+tags:
+        - name: 'Functions'
+          description: 'Functions of the api'
 paths:
-        /ViewDevice/?{type}{serial_number}
+        /ListDevices/:
                 post:
+                   tags:
+                     - 'Functions'
+                   summary: 'Returns a list of devices'
+                   parameters:
+                       - name: type
+                         in: query
+                         required: true
+                         description: 'Enter the device type'
+                       - name: manufacturer
+                         in: query
+                         description: 'Enter the manufacturer'
+                         required: true
+                       - name: serial_number
+                         in: query
+                         required: false
+                         description: 'Enter a serial number'
+                       - name: status
+                         in: query
+                         required: false
+                         description: 'Enter the status(Active/Passive)'
+                   requestBody:
+                         description: 'Client search object'
+                         required: false
+                         content:
+                             application/json:
+                                    schema:
+                                       $ref: '#components/schemas/ClientSearchObject'
+                   responses:
+                          '200':
+                              description: Success
+                          '404':
+                              description: Resource Not Found
+        /ViewDevice/:
+                post:
+                   tags:
+                      - 'Functions'
                    summary: 'Returns information about one device'
+                   parameters:
+                       - name: type
+                         in: query
+                         required: true
+                         description: 'Enter the device type'
+                       - name: serial_number
+                         in: query
+                         required: true
+                         description: 'Enter the serial number'
+                   requestBody:
+                         description: 'Client search object'
+                         required: false
+                         content:
+                             application/json:
+                                     schema:
+                                        $ref: '#components/schemas/ClientSearchObject'
+                   responses:
+                           '200':
+                               description: Success
+                           '404':
+                               description: Resource Not Found
+     
+        /CreateDeviceType/?{type}:
+                post:
+                   tags:
+                     - 'Functions'
+                   summary: 'Creates a new device type'
                    parameters:
                        - name: type
                          in: path
                          required: true
-                       - name: serial_number
-                         in: path
-                         required: true
+                         description: 'Format: type=typeHere'
                    requestBody:
                        description: 'Client search object'
                        required: false
@@ -30,3 +95,251 @@ paths:
                                description: Success
                            '404':
                                description: Resource Not Found
+        /DeleteDeviceType/:
+                post:
+                   tags:
+                     - 'Functions'
+                   summary: 'Deletes a Device Type from the database'
+                   parameters:
+                       - name: type
+                         in: query
+                         required: true
+                         description: 'Enter a Device Type'
+                   requestBody:
+                       description: 'Client search Object'
+                       required: false
+                       content:
+                             application/json:
+                                     schema:
+                                        $ref: '#components/schemas/ClientSearchObject'
+                   responses:
+                           '200':
+                               description: Success
+                           '404':
+                               description: Resource Not Found
+        /InsertDevice/:
+                post:
+                   tags:
+                     - 'Functions'
+                   summary: 'Inserts a device into the database'
+                   parameters:
+                       - name: type
+                         in: query
+                         required: true
+                         description: 'Enter the device type'
+                       - name: manufacturer
+                         in: query
+                         required: true
+                         description: 'Enter an existing manufactuer'
+                       - name: serial_number
+                         in: query
+                         required: true
+                         description: 'Enther the serial number'
+                       - name: status
+                         in: query
+                         required: false
+                         description: 'Enter a status of either Active or Inactive (defaults to active)'
+                   requestBody:
+                       description: 'Client search object'
+                       required: false
+                       content:
+                             application/json:
+                                     schema:
+                                        $ref: '#components/schemas/ClientSearchObject'
+                   responses:
+                           '200':
+                               description: Success
+                           '404':
+                               description: Resource Not Found
+        /DeleteDevice/:
+                post:
+                   tags:
+                     - 'Functions'
+                   summary: 'Deletes a Device from the Inventory'
+                   parameters:
+                       - name: type
+                         in: query
+                         required: true
+                         description: 'Enter the Device Type'
+                       - name: serial_number
+                         in: query
+                         required: true
+                         description: 'Enter the serial number'
+                   requestBody:
+                        description: 'Client Search Object'
+                        required: false
+                        content:
+                             application/json:
+                                     schema:
+                                        $ref: '#components/schemas/ClientSearchObject'
+                   responses:
+                           '200':
+                               description: Success
+                           '404':
+                               description: Resource Not Found
+        /UpdateDeviceType/:
+                post:
+                   tags:
+                     - 'Functions'
+                   summary: 'Updates the Device Type of a device'
+                   paramaters:
+                       - name: oldtype
+                         in: query
+                         required: true
+                         description: 'Enther the original Device Type'
+                       - name: newtype
+                         in: query
+                         required: true
+                         description: 'Enter the new Device Type'
+                       - name: serial_number
+                         in: query
+                         required: true
+                         description: 'Enter the serial number of the Device'
+                   requestBody:
+                        description: 'Client Search Object'
+                        required: false
+                        content:
+                             application/json:
+                                     schema:
+                                         $ref: '#components/schema/ClientSearchObject'
+                   responses:
+                           '200':
+                                description: Success
+                           '404':
+                                description: Resource Not Found
+        /UpdateDeviceManu/:
+                post:
+                   tags:
+                     - 'Functions'
+                   summary: 'Update the manufacturer of a Device'
+                   parameters:
+                       - name: type
+                         in: query
+                         required: true
+                         description: 'Entert the Device Type'
+                       - name: serial_number
+                         in: query
+                         required: true
+                         description: 'Enther the serial number'
+                       - name: manufacturer
+                         in: query
+                         required: true
+                         description: 'Enter the new manufacturer'
+                   requestBody:
+                        description: 'Client Search Object'
+                        required: false
+                        content:
+                             application/json:
+                                     schema:
+                                        $ref: '#components/schema/ClientSearchObject'
+                   responses:
+                           '200':
+                               description: Success
+                           '404':
+                               description: Resource Not Found
+        /UpdateDeviceSerial/:
+                post:
+                  tags:
+                    - 'Functions'
+                  summary: 'Updates the serial number of a Device'
+                  parameters:
+                      - name: type
+                        in: query
+                        required: true
+                        description: 'Enter the Device Type'
+                      - name: old_serial
+                        in: query
+                        required: true
+                        description: 'Enter the old serial number'
+                      - name: new_serial
+                        in: query
+                        required: true
+                        description: 'Enter the new serial number'
+                  requestBody:
+                       description: 'Client Search Object'
+                       required: true
+                       content:
+                            application/json:
+                                    schema:
+                                        $ref: '#components/schema/ClientSearchObject'
+                  responses:
+                          '200':
+                              description: Success
+                          '404':
+                              description: Resource Not Found
+        /UpdateDeviceStatus/:
+                post:
+                   tags:
+                     - 'Functions'
+                   summary: 'Update the status of a Device'
+                   parameters:
+                       - name: type
+                         in: query
+                         required: true
+                         description: 'Enter the Device Type'
+                       - name: serial_number
+                         in: query
+                         required: true
+                         description: 'Enther the serial number'
+                       - name: status
+                         in: query
+                         required: true
+                         description: 'Enter Active or Inactive'
+                   requestBody:
+                        description: 'Client Search Object'
+                        required: false
+                        content:
+                             application/json:
+                                     schema:
+                                        $ref: '#components/schema/ClientSearchObject'
+                   responses:
+                          '200':
+                              description: Success
+                          '404':
+                              description: Resource Not Found
+        /ViewFile/:
+                post:
+                 tags:
+                   - 'Functions'
+                 summary: 'Returns links to the files'
+                 parameters:
+                     - name: type
+                       in: query
+                       required: true
+                       description: 'Enter the Device Type'
+                     - name: serial_number
+                       in: query
+                       required: true
+                       description: 'Enter the serial number' 
+                 requestBody:
+                         description: 'Client Search Object'
+                         required: false
+                         content:
+                           application/json:
+                                   schema:
+                                      $ref: '#components/schemas/ClientSearchObject'
+                 responses:
+                        '200':
+                            description: Success
+                        '404':
+                            description: Resource Not Found
+
+components:
+        schemas:
+           ClientSearchObject:
+                   type: integer
+                   required:
+                       - typeName
+                   properties:
+                     typeName:
+                        type: string
+                     query:
+                         type: string
+           FileUpload:
+                  type: object
+                  properties:
+                     did:
+                       type: string
+                     files:
+                       type: string
+                       format: binary

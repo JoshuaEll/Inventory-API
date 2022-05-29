@@ -1,10 +1,15 @@
 <?php
+/* Author: Joshua Ellis
+ * This file handles the upload of file like (png, jpeg, pdf, etc.). At the moment this is not functional since I am struggling with getting swagger to work for file uploads
+*/
+
 include("functions.php");
 //header("Content-Type: application/json");
 //header("Acess-Control-Allow-Origin: *");
 //header("Acess-Control-Allow-Methods: POST");
 //header("Acess-Control-Allow-Headers: Acess-Control-Allow-Headers,Content-Type,Acess-Control-Allow-Methods, Authorization");
 
+// Database connection
 $dblink=db_iconnect("equipment");
 $extArray = array('application/pdf','application/docx', 'image/png', 'image/jpg', 'image/jpeg', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 //$did = $_REQUEST['did'];

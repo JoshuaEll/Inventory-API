@@ -1,6 +1,13 @@
 <?php
+/* Author: Joshua Ellis
+   This file handles deletion of individual Device records
+ * In Production I would either make it so only someone who is at a higher position is allowed to do this or instead of actually deleting it I would move it to a different database,
+ * where it can be deleted at a later point, or restored.
+*/
 
+// Database connection
 $dblink=db_iconnect("equipment");
+// Get the variables send by POST
 $serial_number = $_REQUEST['serial_number'];
 $type = strtolower($_REQUEST['type']);
 $devType = "device_".$type;
@@ -16,6 +23,7 @@ while ($data = $result->fetch_array(MYSQLI_ASSOC))
 
 }
 
+// If the type does not exist and the variable is not empty return the appropriate message
 if (in_array($type, $types) == false && $type != NULL)
 {
 	header('Content-Type: application/json');
@@ -27,6 +35,8 @@ if (in_array($type, $types) == false && $type != NULL)
 	echo $responseData;
 	die();
 }
+
+// If the variable is empty return the appropriate message
 else if ($type == NULL)
 {
 	header('Content-Type: application/json');
@@ -38,6 +48,7 @@ else if ($type == NULL)
 	echo $responseData;
 	die();
 }
+// If the variable is empty return the appropriate message
 else if ($serial_number == NULL)
 {
 	header('Content-Type: application/json');
@@ -50,6 +61,8 @@ else if ($serial_number == NULL)
 	die();
 	
 }
+
+// Else proceed with deletion
 else
 {
 	if(strpos($serial_number, $sn) === false)

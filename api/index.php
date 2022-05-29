@@ -1,4 +1,7 @@
 <?php
+/* Author: Joshua Ellis
+ * This file was used when I was testing my endpoints using powershell's invoke-restmethod
+*/
 
 include("functions.php");
 $uri=parse_url($_SERVER['REQUEST_URI'],PHP_URL_QUERY);

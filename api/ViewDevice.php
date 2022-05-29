@@ -1,6 +1,14 @@
 <?php
+/* Author: Joshua Ellis
+ * This file allows to view the information of one device
+ * It shows Device ID, manufacturer, serial number and if there is a File bound to this device
+*/
+
+// Database connection
 include("functions.php");
 $dblink=db_iconnect("equipment");
+
+// Get the variable send through POST
 $serial_number = $_REQUEST['serial_number'];
 $sn='SN-';
 $type = strtolower($_REQUEST['type']);
@@ -15,7 +23,7 @@ while ($data = $result->fetch_array(MYSQLI_ASSOC))
 		$types[]=$data['type'];
 
 }
-
+// Variable validation
 if ($serial_number == NULL )
 {
 	header('Content-Type: application/json');

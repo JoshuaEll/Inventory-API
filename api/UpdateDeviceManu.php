@@ -1,5 +1,11 @@
 <?php
 
+/* Author: Joshua Ellis
+ * This file handles the updates to a device's manufacturer
+*/
+
+// Database connection
+include("functions.php");
 $dblink=db_iconnect("equipment");
 
 $type = strtolower($_REQUEST['type']);
@@ -27,6 +33,7 @@ while ($data = $result1->fetch_array(MYSQLI_ASSOC))
 		$manus[]=$data['manufacturer'];
 
 }
+
 if ($type == NULL)
 {
 	header('Content-Type: application/json');

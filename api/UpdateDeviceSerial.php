@@ -1,6 +1,13 @@
 <?php
+/* Author: Joshua Ellis
+ * This file handles the update of a device's Serial number_format
+*/
 
+// Database connection
+include("functions.php");
 $dblink=db_iconnect("equipment");
+
+// Get the variables send through POST
 $oldSerial = $_REQUEST['old_serial'];
 $type = strtolower($_REQUEST['type']);
 $devtype = "device_".$type;
@@ -17,7 +24,7 @@ while ($data = $result->fetch_array(MYSQLI_ASSOC))
 
 }
 
-
+// Variable Validation
 if ($type == NULL)
 {
 	header('Content-Type: application/json');
@@ -75,6 +82,7 @@ else if ($new_serial == NULL)
 }
 else
 {
+	// Add SN- to the old and new serial if they did not have it
 	if(strpos($oldSerial,$sn) === false)
 	{
 		$oldSerial = 'SN-' . $oldSerial;	
@@ -87,6 +95,7 @@ else
 	$result=$dblink->query($sql) or
 		die("Something went wrong with $sql");
 	$device=$result->fetch_array(MYSQLI_ASSOC);
+	// If the device exists change the serial number
 	if ($result->num_rows>0)
 	{
 		$sql2 = "Update `".$devtype."` Set `serial_number` = '$new_serial' Where `serial_number` = '$oldSerial'";

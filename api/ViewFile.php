@@ -1,6 +1,13 @@
 <?php
+/* Author: Joshua Ellis
+ * This file returns links to view the files bound to a device
+*/
+
+// Database connection
 include("functions.php");
 $dblink=db_iconnect("equipment");
+ 
+// Request the variables send through POST
 $type = strtolower($_REQUEST['type']);
 $devtype = 'device_'.$type;
 $serial_number = $_REQUEST['serial_number'];
@@ -16,7 +23,7 @@ while ($data = $result->fetch_array(MYSQLI_ASSOC))
 		$types[]=$data['type'];
 
 }
-
+// Variable validation
 if($serial_number == NULL)
 {
 	header('Content-Type: application/json');
@@ -58,11 +65,13 @@ else
 		die("Something went wrong with $sql");
 	$device = $result->fetch_array(MYSQLI_ASSOC);
 	$did = $device['auto_id'];
+	// If the device exists check for files if not return with appropriate message
 	if ($result->num_rows>0)
 	{
 		$sql1 = "Select * from `files` where `device` = '".$did."'";
 		$result1 = $dblink->query($sql1) or
 			die("Something went wrong with $sql1");
+		// If there are files for the device, create links in an array and return those, else return with appropriate message
 		if ($result1->num_rows>0)
 		{
 			while ($file = $result1->fetch_array(MYSQLI_ASSOC))

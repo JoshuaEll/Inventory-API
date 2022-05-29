@@ -1,8 +1,16 @@
 <?php
+/* Author: Joshua Ellis
+ * This file handles the update of a device's type
+*/
 
+// Database Connection
+
+include("functions.php");
 $dblink=db_iconnect("equipment");
+
 $output=array();
 $sn = 'SN-';
+// Get the variable send through POST
 $oldtype = strtolower($_REQUEST['oldtype']);
 $oldDevtype = "device_".$oldtype;
 $newtype = strtolower($_REQUEST['newtype']);
@@ -17,6 +25,7 @@ while ($data = $result->fetch_array(MYSQLI_ASSOC))
 		$types[]=$data['type'];
 
 }
+// Variable validation
 if ($newtype == NULL || $oldtype == NULL)
 {
 	header('Content-Type: application/json');
@@ -64,6 +73,7 @@ else if($serial_number == NULL)
 
 else
 {
+	// Add SN- to serial number if it does not have it
 	if (strpos($serial_number, $sn) === false)
 	{
 		$serial_number = 'SN-' . $serial_number;
@@ -72,13 +82,16 @@ else
 	$result=$dblink->query($sql) or
 		die("Something went wrong with $sql");
 	$device=$result->fetch_array(MYSQLI_ASSOC);
+	// If the record exists, update it's device Type,
 	if ($result->num_rows>0)
 	{
 		$manu = $device['manu_id'];
 		$status = $device['status'];
+		// Insert it into the new table
 		$sql2 = "Insert into `".$newDevType."` (`manu_id`, `serial_number`, `status`) Values ('".$manu."', '".$serial_number."', '".$status."')";
 		$dblink->query($sql2) or
 			die("Something went wrong with $sql2");
+		// Delete it from the old table
 		$sql3 = "Delete from `".$oldDevtype."` where `serial_number` = '".$serial_number."'";
 		$dblink->query($sql3) or
 			die("Something went wrong with $sql3");

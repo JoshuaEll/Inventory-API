@@ -1,6 +1,15 @@
 <?php
+
+/* Author: Joshua Ellis
+ * Lists the Devices of a certain device type.
+ * Allows also search by serial number and status (Active/Inactive)
+ * At the moment it only lists a 1000 out of ~700,000 devices.
+*/
+
+// Database connection
 include("functions.php");
 $dblink = db_iconnect("equipment");
+//Gets the variables send throgyh POST
 $type = strtolower($_REQUEST['type']);
 $manu = $_REQUEST['manufacturer'];
 if (isset($_REQUEST['serial_number']))
@@ -40,6 +49,7 @@ while ($data1 = $result1->fetch_array(MYSQLI_ASSOC))
 		$manus[]=$data1['manufacturer'];
 
 }
+// Block to validate variables
 if ($type == NULL || in_array($type,$types) == false)
 {
 	header('Content-Type: application/json');
@@ -76,7 +86,7 @@ else if ($manu == NULL)
 }
 else
 {
-	
+	// Check if the serial number entered already contains SN- or not
 	if(strpos($serial_number, $sn) === false)
 	{
 		

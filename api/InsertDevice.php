@@ -1,8 +1,15 @@
 <?php
+
+/* Author: Joshua Ellis
+ * This file handles the insertion of new devices
+*/
+
+// Database connection
 include("functions.php");
 $dblink = db_iconnect("equipment");
-$type = strtolower($_REQUEST['type']);
 
+// Get the variables send by POST
+$type = strtolower($_REQUEST['type']);
 $manu = $_REQUEST["manufacturer"];
 $serial_number = $_REQUEST["serial_number"];
 $status = $_REQUEST["status"];
@@ -27,6 +34,7 @@ while ($data = $result->fetch_array(MYSQLI_ASSOC))
 		$types[]=$data['type'];
 
 }
+// Block to check if all variables are correct, if not return with appropriate message
 if ($type == NULL)
 {
 	header('Content-Type: application/json');
@@ -82,6 +90,7 @@ else if ($serial_number == NULL)
 	echo $responseData;
 	die();
 }
+// If all variables are correct continue with insertion
 else //// still needs to be written
 {
 	if(strpos($serial_number, $sn) === false)

@@ -1,5 +1,13 @@
 <?php
+/* Author: Joshua Ellis
+ * This file handles the update of a device's Status.
+*/
+
+// Database connection
+include("functions.php");
 $dblink=db_iconnect("equipment");
+
+// Getting the variable send through POST
 $serial_number = $_REQUEST['serial_number'];
 $sn = 'SN-';
 $output=array();
@@ -16,7 +24,7 @@ while ($data = $result->fetch_array(MYSQLI_ASSOC))
 
 }
 
-
+// Variable validation
 if ($type == NULL)
 {
 	header('Content-Type: application/json');
@@ -74,10 +82,12 @@ else if (strcasecmp($status, 'Inactive') != 0 && strcasecmp($status, 'Active') !
 }
 else
 {
+	// Check if the serial number does not Contain SN-
 	if (strpos($serial_number, $sn) === false)
 	{
 		$serial_number = 'SN-' . $serial_number;
 	}
+	// Do a case compare of the user send status and uniform it
 	if (strcasecmp($status, 'Inactive') == 0){
 		$status = 'Inactive';
 	}
@@ -85,10 +95,13 @@ else
 	{
 		$status = 'Active';	
 	}
+	
 	$sql = "Select * from `".$devtype."` where `serial_number` = '$serial_number'";
 	$result=$dblink->query($sql) or
 		die("Something went wrong with $sql");
 	$device=$result->fetch_array(MYSQLI_ASSOC);
+	
+	// If the device has been found, update the device status
 	if ($result->num_rows>0)
 	{
 		$sql2 = "Update `".$devtype."` Set `status` = '$status' Where `serial_number` = '$serial_number'";

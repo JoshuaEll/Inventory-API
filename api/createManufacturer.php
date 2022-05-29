@@ -1,5 +1,9 @@
 <?php
+/* Author: Joshua Ellis
+ * Handles the creation of a new Manufacturer to the Inventory Database
+*/
 
+// Database connection
 $dblink=db_iconnect("equipment");
 $manu = $_REQUEST["manufacturer"];
 $output=array();
@@ -12,6 +16,7 @@ while ($data = $result1->fetch_array(MYSQLI_ASSOC))
 		$manus[]=$data['manufacturer'];
 
 }
+// If the manufacturer variable is not empty and already exists return with appropriate message
 if (in_array($manu, $manus) == true && $manu != NULL)
 {
 	header('Content-Type: application/json');
@@ -23,6 +28,7 @@ if (in_array($manu, $manus) == true && $manu != NULL)
 	echo $responseData;
 	die();
 }
+// If the manufacturer variable is empty return with appropriate message
 else if	($manu == NULL)
 {
 	header('Content-Type: application/json');
@@ -35,6 +41,7 @@ else if	($manu == NULL)
 	die();
 }
 
+// Else continue with creation
 else
 {
 	$sql = "Insert into `manu_Tbl` (`manufacturer`) Values ('".$manu."')";
