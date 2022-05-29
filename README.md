@@ -6,7 +6,7 @@ A small inventory API residing on a free tier AWS server(1 GB of ram 30 GB of st
 This is the Web Application version that allows the user to interact with the 5 million record database.
 Link: https://ec2-54-144-131-180.compute-1.amazonaws.com/
 
-![index](https://github.com/JoshuaEll/Inventory-API/tree/main/img/WebIndex.PNG?raw=true) <br>
+![index](https://github.com/JoshuaEll/Inventory-API/tree/main/img/WebIndex.png?raw=true) <br>
 As seen in the image above it allows the user to search by: Device type, manufacturer, Serial Number and Status, with type and manufacturer being required.
 This gives the user the ability to view the data returned in table format(see picture below).
 ![list](https://github.com/JoshuaEll/Inventory-API/tree/main/img/ListDevices.PNG)
