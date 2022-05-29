@@ -21,4 +21,4 @@ It has the all the functions of above, though I also added the ability to add a 
 
 Link: https://ec2-54-144-131-180.compute-1.amazonaws.com/swagger/#/ <br>
 
-[swagger](img/swagger.PNG) <br>
+![swagger](img/swagger.PNG) <br>
