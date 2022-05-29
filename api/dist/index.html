@@ -1,0 +1,49 @@
+<!-- HTML for static distribution bundle build -->
+<!DOCTYPE html>
+<html lang="en">
+	  <head>
+		      <meta charset="UTF-8">
+		          <title>Swagger UI</title>
+			      <link rel="stylesheet" type="text/css"onaws.com/api/dist/swagger-ui.css" >
+					     <link rel="icon" type="image/png" href="https://ec2-3-19-123-182.us-east-2.compute.ama2.png" sizes="32x32" />
+							    <link rel="icon" type="image/png" href="https://ec2-3-19-123-182.us-east-2.compute.amazonaws.com/api/dist/favicon-16x16.png" sizes="16x16" />
+							        <style>
+      html
+	            {
+	              box-sizing:     overflow: -moz-scrollbars-vertical;
+		              overflow-y: scroll;
+			            }
+            *,
+	          *:before,
+		        *:after
+				      {
+				        box-sizing:;
+					      }
+
+			      body
+				            {
+				      margin:0;
+				           ;
+					         }
+			          </style>
+			          <div id="swagger-ui"></div>
+				      <script src="https://unpkone-preset.js"></script>
+				          <script src="https://unpkg.com/swagger-ui-dist@3.12.1/swagger-ui-bundle.js"></script>
+					      <script>
+						          window.onload = function() {
+								        // Begin Swagger UI call region
+								          console.log(window.location.pathname);
+								        const ui = Sion.protocol + "//" + window.location.hostname + "/api/swagger.yaml",
+									          dom_id: '#swagger-ui',
+									   esets: [
+										                 SwaggerUIBundle.presets.apis,
+										                 SwaggerUIStandalonePreset
+										             ],
+									            layout: "StandaloneLayout"
+								        })
+      // End Swagger 
+      window.ui = ui
+    }
+  </script>
+    </body>
+</html>

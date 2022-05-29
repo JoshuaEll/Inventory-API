@@ -1,0 +1,32 @@
+
+openapi: 3.0.0
+info:
+        title: Inventory Test Api
+        description: This is a test API that uses a free tier AWS server. It has access to a database of 5 million records.
+        version: 1.0.0
+
+servers:
+        - url: https://ec2-54-144-131-180.compute-1.amazonaws.com
+paths:
+        /ViewDevice/?{type}{serial_number}
+                post:
+                   summary: 'Returns information about one device'
+                   parameters:
+                       - name: type
+                         in: path
+                         required: true
+                       - name: serial_number
+                         in: path
+                         required: true
+                   requestBody:
+                       description: 'Client search object'
+                       required: false
+                       content:
+                             application/json:
+                                     schema:
+                                        $ref: '#components/schemas/ClientSearchObject'
+                   responses:
+                           '200':
+                               description: Success
+                           '404':
+                               description: Resource Not Found

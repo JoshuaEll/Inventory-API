@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="ViewDevice.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132975609333281609" remote="132975609380000000" Dst="2" />
+<file name="ListDevices.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132977757507395862" remote="132977757530000000" Dst="2" />
+<file name="UploadFile.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132979389626774714" remote="132979389600000000" Dst="2" />
+<file name="ViewFile.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132979409183888065" remote="132979409250000000" Dst="2" />
+<file name="InsertDevice.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132976759695996182" remote="132976759720000000" Dst="2" />
+<file name="CreateDeviceType.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132976746857048771" remote="132976746870000000" Dst="2" />
+<file name="functions.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132953381847423286" remote="132963695930000000" Dst="2" />
+<file name="index.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132975548750350095" remote="132975548760000000" Dst="2" />
+<file name="deleteDevice.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132963689879857503" remote="132963695960000000" Dst="2" />
+<file name="UpdateDeviceType.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132963476168673384" remote="132963695940000000" Dst="2" />
+<file name="createManufacturer.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132962536031571477" remote="132963695960000000" Dst="2" />
+<file name="UpdateDeviceManu.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132962907733825245" remote="132963695940000000" Dst="2" />
+<file name="UpdateDeviceSerial.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132963563992999719" remote="132963695950000000" Dst="2" />
+<file name="UpdateDeviceStatus.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132963687647449381" remote="132963695950000000" Dst="2" />
+<file name="DeleteDeviceType.php" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132963553881890291" remote="132963695960000000" Dst="2" />
+<file name="swagger.yaml" server="ec2-54-144-131-180.compute-1.amazonaws.com//var/www/html/" local="132975556430000000" remote="132975556430000000" Dst="2" />
+</dwsync>
