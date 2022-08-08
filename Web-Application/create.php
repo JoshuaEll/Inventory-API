@@ -23,8 +23,8 @@ $(document).ready(function() {
 		-->
 	</script>
 <?php die;}
-$usr = "webuser";
-$pw = "gG6SLzdskA2IrbKs";
+$usr = "username here";
+$pw = "Password here";
 $db = "equipment";
 $hostname = "localhost";
 $sn = "SN-";
