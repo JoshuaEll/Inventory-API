@@ -23,14 +23,17 @@ $(document).ready(function() {
 		-->
 	</script>
 <?php die;}
-$usr = "webuser";
-$pw = "gG6SLzdskA2IrbKs";
+
+// data base connection (better to use sepereate file for this information)
+$usr = "User name here";
+$pw = "password here";
 $db = "equipment";
 $hostname = "localhost";
 $sn = "SN-";
 $did = $_REQUEST['did'];
 $type = $_REQUEST['type'];
 $dblink = new mysqli($hostname, $usr, $pw, $db);
+// find all types
 $sql = "Select `type` from `device_types`";
 $result = $dblink->query($sql) or
 		die("Something went wrong with $sql");
@@ -46,6 +49,8 @@ echo '<div class="panel-heading">Update Device</div>';
 echo '<div class="panel-body">';
 echo '<form method="post" action="">';
 echo '<div><select name="types">';
+
+// display the types in a drop down to allow the user to change the type of the original device
 foreach($devices as $key=>$value)
 	{
 		echo '<option value="'.$value.'">'.$value.'</option>';
@@ -91,16 +96,20 @@ if (isset($_POST['submit']) && $_POST['submit']=="lookUp")
 
 			}
 			
+			// unnecessary. I could just allow for empty fields and then query the manufacturer of that device
 			if(empty($manu) || in_array($manu, $manuArray) == false)
 			{
 				echo '<script>alert("Field cannot be empty and manufacturer must exist in database!")</script>';
 				redirect("https://ec2-54-144-131-180.compute-1.amazonaws.com/update.php?did=".$did."&type=".$type."");
 			}
+			// same as with the manufacturer
 			if(empty($serial))
 			{
 				echo '<script>alert("Serial Number field needs to filled out.")</script>';
 				redirect("https://ec2-54-144-131-180.compute-1.amazonaws.com/update.php?did=".$did."&type=".$type."");
 			}
+	
+			// if the user changed the type, then move the device to the new table and do all the other changes 
 			if(strcmp($lowType,$type) !== 0)
 			{
 				if(strpos($serial, $sn) !== false)
