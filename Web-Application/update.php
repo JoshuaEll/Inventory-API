@@ -6,6 +6,9 @@
 <script src="assets/js/jquery.dataTables.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>
 <script type="text/javascript">
+	
+// If this was a real web application, this function of the app should be hidden behind a login and only be viewable for people with the right clearance	
+	
  $.extend( $.fn.dataTable.defaults, {
     responsive: true
 });
