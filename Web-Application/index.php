@@ -23,16 +23,18 @@ $(document).ready(function() {
 		-->
 	</script>
 <?php die;}
-//echo"<p> Hello Software Engineering</p>";
-$usr = "webuser";
-$pw = "gG6SLzdskA2IrbKs";
+// db connection
+$usr = "username here";
+$pw = "Password here";
 $db = "equipment";
 $hostname = "localhost";
 
 $dblink = new mysqli($hostname, $usr, $pw, $db);
 $sn = "SN-";
+// check if the submit button has not been clicked yet
 if (!isset($_POST['submit']))
 {
+	// display all the selection components
 	$sql = "Select `type` from `device_types`";
 	$result = $dblink->query($sql) or
 		die("Something went wrong with $sql");
@@ -67,7 +69,7 @@ if (!isset($_POST['submit']))
 		echo '<option value="'.$value.'">'.$value.'</option>';
 	}
 	echo '</select></div>';
-	//array_unshift($manuf, "");
+	
 	$manuStr=implode(",",$manuf);
 	echo '<form method="post" action="">';
 	echo '<input type="hidden" name="manufacturer" value="'.$manuStr.'">';
@@ -92,6 +94,7 @@ if (!isset($_POST['submit']))
 	echo '</div>';
 	echo '</div>';
 }
+// if the submit button has been clicked fullfill the query
 if (isset($_POST['submit']) && $_POST['submit']=="lookUp")
 {
 	$device=$_POST['device'];
