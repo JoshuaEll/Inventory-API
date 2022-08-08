@@ -6,6 +6,8 @@
 <script src="assets/js/bootstrap-fileupload.js"></script>
 <script src="assets/js/bootstrap.js"></script>
 
+
+// If this was a real web application, this function of the app should be hidden behind a login and only be viewable for people with the right clearance
 <?php
 	function redirect ( $uri )
 	{ ?>
@@ -15,18 +17,24 @@
 		-->
 	</script>
 	<?php die;}
-	$usr = "webuser";
-	$pw = "gG6SLzdskA2IrbKs";
+	// database connection information
+	$usr = "Username here";
+	$pw = "Password here";
 	$db = "equipment";
 	$hostname = "localhost";
 	$extArray = array('application/pdf','application/docx', 'image/png', 'image/jpg', 'image/jpeg', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
 	$dblink = new mysqli($hostname, $usr, $pw, $db);
+
+	//get the device id and type
 	$did = $_REQUEST['did'];
 	$type = $_REQUEST['type'];
+
+	// get basic information of the device
 	$sql = "Select `manu_Tbl`.`manufacturer`, `serial_number`, `status` From `".$type."` Join `manu_Tbl` on `".$type."`.`manu_id` = `manu_Tbl`.`manu_id` where `auto_id` = $did";
 	$result=$dblink->query($sql) or
 		die("Something went wrong with $sql");
 	$device=$result->fetch_array(MYSQLI_ASSOC);
+
 	echo '<div class="row">';
 	echo '<div class="panel panel-success col-md-4">';
 	echo '<div class="panel-heading">Device Info</div>';
@@ -35,23 +43,29 @@
 	echo '<p>Serial Number: '.$device['serial_number'].'</p>';
 	echo '<p>Status: '.$device['status'].'</p>';
 	$manufacturer = $device['manufacturer'];
-	
+
+	// query for any files associated with the device
 	$sql="Select * from `files` where `device` =$did";
 	$result=$dblink->query($sql) or
 		die("Something went wrong with $sql");
+	// if something was found, display it
 	if ($result->num_rows>0)
 	{
 		echo '<p>Device record Files Found:</p>';
 		while ($data=$result->fetch_array(MYSQLI_ASSOC))
 		{
 			$name = $data['file_name'];
+			//Button to open up the file in a new tab
 			echo '<p><a class="btn btn-sm btn-primary" href="./files/'.$name.'" target="_blank">View Record</a></p>';
 			echo '<form method="post">';
-        	echo '<input type="submit" name="deleteFile" value="Delete"/>';
+			//Button to allow the user to delete
+			//
+        		echo '<input type="submit" name="deleteFile" value="Delete"/>';
 			echo '</form>';
 			
 			
 			//echo '<button class="btn btn-success" name="UploadFileSys" type="button" value="deleteFile"/>Delete</button>';
+			//if the deletedFile button was clicked delete the file from the database
 			if (isset($_POST['deleteFile']))
 			{
 				echo "<p> Sql: ".$did."</p>";
@@ -74,6 +88,7 @@
 	echo '<div class="panel panel-primary">';
 	echo '<div class="panel-heading">Upload File</div>';
 	echo '<div class="panel-body">';
+	//form to allow for upload of a new file
 	echo '<form role="form" method="post" enctype="multipart/form-data" action="">';
 	echo '<input type="hidden" name="MAX_FILE_SIZE" value="50000000">';
 	echo '<input type="hidden" name="id" value="'.$did.'">';
@@ -95,9 +110,9 @@
 	echo '</form>';
 	echo '</div>';
 	echo '</div>';
-
 	echo '</div>';
-	//echo '</div>';
+	
+	// if the upload button was clicked and the size of the file is larger then 0 continue with upload
 	if (isset($_POST["UploadFileSys"]) && $_FILES['userfile']['size'] > 0)
 	{	
 		$start_time = microtime(true);
@@ -106,11 +121,12 @@
 		//$type = $_POST['type'];
 		$fileNameTmp = $_FILES['userfile']['name'];
 		$fileName = preg_replace('/\s+/','_',$fileNameTmp);
-		$regexEx = "^(([a-zA-Z]:)|(\\{2}\w+)\?)(\\(\w[\w].*))+(.jpg|.docx|.pdf|.png)$";
+		$regexEx = "^(([a-zA-Z]:)|(\\{2}\w+)\?)(\\(\w[\w].*))+(.jpg|.docx|.pdf|.png)$"; //regex to check for file names
 		$tmpName = $_FILES['userfile']['tmp_name'];
 		$fileSize = $_FILES['userfile']['size'];
 		$fileType = $_FILES['userfile']['type'];
 		$location = "$uploadDir/$fileName";
+		// check if the files end with the correct type
 		if (in_array($_FILES['userfile']['type'], $extArray) && preg_match($regexEx, $fileName) !== 0)
 		{	
 			move_uploaded_file($tmpName, $location);
@@ -121,6 +137,8 @@
 			
 			redirect("https://ec2-54-144-131-180.compute-1.amazonaws.com/upload.php?did=".$did."&type=".$type."");
 		}
+		//if they don't match the regex warn that this filetype is not allowed
+		// Could use alert instead of this
 		else
 		{	
 			echo" $fileType";
