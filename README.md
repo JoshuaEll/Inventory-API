@@ -16,8 +16,7 @@ Or, the user can choose to update the device and also create new types or insert
 ![create](img/Create.PNG) <br>
 
 # API
-This is API version of the above.
-It has the all the functions of above, though I also added the ability to add a new manufacturer to the database. <br>
+This is the swagger page, showing all the endpoints, that can be accessed.<br>
 
 Link: https://ec2-54-144-131-180.compute-1.amazonaws.com/swagger/#/ (not in use anymore) <br>
 
